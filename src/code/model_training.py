@@ -45,7 +45,8 @@ def cross_validation_evaluator(model: BaseEstimator, x, y, cv) -> Dict[str, Base
 def find_best_regression_algorithm(
     df: DataFrame,
     data_feature: str,
-    target_feature: str
+    target_feature: str,
+    models: Dict[str, BaseEstimator],
 ) -> BaseEstimator:
     # Вибрані колонки характеристик та прогнозування
     selected_columns = [data_feature, target_feature]
@@ -74,9 +75,6 @@ def find_best_regression_algorithm(
 
     # Тестові дані з лагами
     X_test, y_test = test.drop(target_feature, axis=1), test[target_feature]
-
-    # Набір моделей з параметрами за замовчуванням
-    models: Dict[str, BaseEstimator] = defaultEstimatorModels()
 
     # Time Series Split for cross-validation
     tscv = TimeSeriesSplit(n_splits=5)
